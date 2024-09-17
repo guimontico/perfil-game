@@ -18,11 +18,11 @@ import {
  */
 export const createTable = pgTableCreator((name) => `perfil-game_${name}`);
 
-export const posts = createTable(
-  "post",
+export const games = createTable(
+  "game",
   {
     id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
+    subject: varchar("name", { length: 256 }).notNull(),
     createdAt: timestamp("created_at", { withTimezone: true })
       .default(sql`CURRENT_TIMESTAMP`)
       .notNull(),
@@ -31,6 +31,6 @@ export const posts = createTable(
     ),
   },
   (example) => ({
-    nameIndex: index("name_idx").on(example.name),
+    nameIndex: index("name_idx").on(example.subject),
   })
 );
